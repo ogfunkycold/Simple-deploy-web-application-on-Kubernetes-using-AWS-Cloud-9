@@ -40,7 +40,11 @@ Another popular option for container orchestration on AWS is Kubernetes. There a
 
 ![3.png](/images/3.png)
 
-1.7. When Cloud9 Env already, copy below command and paste into terminal to get the resource which workshop need.
+1.7. Open the **AWS Cloud9** menu, go to **Preferences**, go to **AWS Settings**, and disable **AWS managed temporary credentials** as depicted in the diagram here.
+
+![7.png](/images/7.png)
+
+1.8. Copy below command and paste into terminal to get the resource which workshop need.
 
 	 git clone https://github.com/ecloudvalley/Simple-deploy-web-application-on-Kubernetes-using-AWS-Cloud-9.git
 
@@ -49,18 +53,20 @@ Another popular option for container orchestration on AWS is Kubernetes. There a
 
 ![5.png](/images/5.png)
 
-1.8. Copy below command and paste into terminal.
+1.9. Copy below command and paste into terminal.
 
-	$ cd Simple_Deploy_On_Kubernetes
+	$ cd Simple-deploy-web-application-on-Kubernetes-using-AWS-Cloud-9
+	$ git config --global credential.helper '!aws codecommit credential-helper $@'
+	$ git config --global credential.UseHttpPath true
 	$ chmod +x ide_build_script.sh
 
 
-1.9. Copy below command and paste into terminal, this command help you run script.
+1.10. Copy below command and paste into terminal, this command help you run script.
 
 	$ . ide_build_script.sh
 
 
-1.10. The build script installs the following:
+1.11. The build script installs the following:
 
 * jq
 * kubectl (the Kubernetes CLI, which we’ll cover in great detail later in the workshop)
@@ -68,15 +74,13 @@ Another popular option for container orchestration on AWS is Kubernetes. There a
 * configures the AWS CLI and stores necessary environment variables in bash_profile
 * creates an SSH key
 
-1.11 When it all finish, you can try to type **kops get nodes** in terminal, if it responsed **Cluster.kops "nodes" not found**, that mean your kops is installed successfully
+1.12. When it all finish, you can try to type **kops get nodes** in terminal, if it responsed **Cluster.kops "nodes" not found**, that mean your kops is installed successfully
 
 ![6.png](/images/6.png)
 
-1.12. Open the **AWS Cloud9** menu, go to **Preferences**, go to **AWS Settings**, and disable **AWS managed temporary credentials** as depicted in the diagram here.
 
-![7.png](/images/7.png)
 
-1.12. Now, enviroment settings is finish, next we will create your fisrt kubernetes cluster.
+1.13. Now, enviroment settings is finish, next we will create your fisrt kubernetes cluster.
 
 
 ### Create Kubernetes Cluster
@@ -135,10 +139,10 @@ Another popular option for container orchestration on AWS is Kubernetes. There a
 
 3.13. Copy below command and paste into terminal, these docker command help you build the dockerimage and push it to AWS ECR.
 
-	$ docker build -t your-repository:latest .
-	$ docker tag your-repository:latest your-repository:first
-	$ docker push your-repository:latest
-	$ docker push your-repository:first
+	$ docker build -t <your-repository>:latest .
+	$ docker tag <your-repository>:latest <your-repository>:first
+	$ docker push <your-repository>:latest
+	$ docker push <your-repository>:first
     
 > Now go back to the AWS ECR, then you will see the image you builded and pushed previously
 
@@ -148,7 +152,7 @@ Another popular option for container orchestration on AWS is Kubernetes. There a
 
 3.15. Save it, back to terminal, copy below command and paste it into terminal, this command help you create a deployment using kubernetes cli.
 
-	$ kubectl create -f Deployment.yaml –record
+	$ kubectl create -f Deployment.yaml --record
 	$ kubectl describe deployment/testwebapp-deployment
     
 3.16. You will see the deployment detail, if you deploy successfully.
@@ -195,10 +199,10 @@ Another popular option for container orchestration on AWS is Kubernetes. There a
 
 5.3. Use below code to build and push.
 
-	docker build -t your-repository:latest .
-	docker tag your-repository:latest your-repository:second
-	docker push your-repository:latest
-	docker push your-repository:second
+	docker build -t <your-repository>:latest .
+	docker tag <your-repository>:latest <your-repository>:second
+	docker push <your-repository>:latest
+	docker push <your-repository>:second
 
 5.4. Copy and Paste below code.
 

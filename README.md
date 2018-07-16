@@ -24,29 +24,29 @@ Another popular option for container orchestration on AWS is Kubernetes. There a
 	https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=k8s-workshop&templateURL=https://s3.amazonaws.com/aws-kubernetes-artifacts/lab-ide-novpc.template
 
 
-Click **Next**.
+1.2. Click **Next**.
 
-1.2. Assign an **Subnetid** for this enviroment.
+1.3. Assign an **Subnetid** for this enviroment.
 
 ![1.png](/images/1.png)
 
-1.3. Click **Next** until at review page.
+1.4. Click **Next** until at review page.
 
-1.4. Scroll down and select **confirm** option.
+1.5. Scroll down and select **confirm** option.
 
 ![2.png](/images/2.png)
 
-1.5. Click **Create**.
+1.6. Click **Create**.
 
-1.6. When created complete, select **k8s-workshop**, click **output**, click the **url**, it will take you to cloud9 enviroment.
+1.7. When created complete, select **k8s-workshop**, click **output**, click the **url**, it will take you to cloud9 enviroment.
 
 ![3.png](/images/3.png)
 
-1.7. Open the **AWS Cloud9** menu, go to **Preferences**, go to **AWS Settings**, and disable **AWS managed temporary credentials** as depicted in the diagram here.
+1.8. Open the **AWS Cloud9** menu, go to **Preferences**, go to **AWS Settings**, and disable **AWS managed temporary credentials** as depicted in the diagram here.
 
 ![7.png](/images/7.png)
 
-1.8. Copy below command and paste into terminal to get the resource which workshop need.
+1.9. Copy below command and paste into terminal to get the resource which workshop need.
 
 	 git clone https://github.com/ecloudvalley/Simple-deploy-web-application-on-Kubernetes-using-AWS-Cloud-9.git
 
@@ -55,7 +55,7 @@ Click **Next**.
 
 ![5.png](/images/5.png)
 
-1.9. Copy below command and paste into terminal.
+1.10. Copy below command and paste into terminal.
 
 	$ cd Simple-deploy-web-application-on-Kubernetes-using-AWS-Cloud-9
 	$ git config --global credential.helper '!aws codecommit credential-helper $@'
@@ -63,12 +63,12 @@ Click **Next**.
 	$ chmod +x ide_build_script.sh
 
 
-1.10. Copy below command and paste into terminal, this command help you run script.
+1.11. Copy below command and paste into terminal, this command help you run script.
 
 	$ . ide_build_script.sh
 
 
-1.11. The build script installs the following:
+1.12. The build script installs the following:
 
 * jq
 * kubectl (the Kubernetes CLI, which we’ll cover in great detail later in the workshop)
@@ -76,13 +76,13 @@ Click **Next**.
 * configures the AWS CLI and stores necessary environment variables in bash_profile
 * creates an SSH key
 
-1.12. When it all finish, you can try to type **kops get nodes** in terminal, if it responsed **Cluster.kops "nodes" not found**, that mean your kops is installed successfully
+1.13. When it all finish, you can try to type **kops get nodes** in terminal, if it responsed **Cluster.kops "nodes" not found**, that mean your kops is installed successfully
 
 ![6.png](/images/6.png)
 
 
 
-1.13. Now, enviroment settings is finish, next we will create your fisrt kubernetes cluster.
+1.14. Now, enviroment settings is finish, next we will create your fisrt kubernetes cluster.
 
 
 ### Create Kubernetes Cluster
@@ -115,33 +115,33 @@ Click **Next**.
 
 3.4. Remember the **Repository URI**, it will be used later.
 
-Click **Next step**.
+3.5. Click **Next step**.
 
 ![9.png](/images/9.png)
 
 > We also need to give our cloud9’s ec2 a permission to push the image in our repository.
 
-3.5. In the Service Menu, find **IAM**.
+3.6. In the Service Menu, find **IAM**.
 
-3.6. Click **Roles** at the left panel.
+3.7. Click **Roles** at the left panel.
 
-3.7. Find **k8s-workshop-LabIdeRole-XXXXXXXXXXXX**.
+3.8. Find **k8s-workshop-LabIdeRole-XXXXXXXXXXXX**.
 
-3.8. Click **Attach Policy**.
+3.9. Click **Attach Policy**.
 
-3.9. In the filter, type **AmazonEC2ContainerRegistryPowerUser**, and select it.
+3.10. In the filter, type **AmazonEC2ContainerRegistryPowerUser**, and select it.
 
-3.10. Click **Attach policy**.
+3.11. Click **Attach policy**.
 
-3.11. Go back to cloud9, Copy below command and paste into terminal.
+3.12. Go back to cloud9, Copy below command and paste into terminal.
 
 	$ aws ecr get-login --no-include-email
 
-3.12. It will responed you a long command, copy it and paste it into terminal again.
+3.13. It will responed you a long command, copy it and paste it into terminal again.
 
 ![10.png](/images/10.png)
 
-3.13. Copy below command and paste into terminal, these docker command help you build the dockerimage and push it to AWS ECR.
+3.14. Copy below command and paste into terminal, these docker command help you build the dockerimage and push it to AWS ECR.
 
 	$ docker build -t <your-repository>:latest .
 	$ docker tag <your-repository>:latest <your-repository>:first
@@ -150,32 +150,32 @@ Click **Next step**.
     
 > Now go back to the AWS ECR, then you will see the image you builded and pushed previously
 
-3.14. Go back Cloud9 and open the **Deployment.yaml** at the left panel.Remember to change the image.
+3.15. Go back Cloud9 and open the **Deployment.yaml** at the left panel.Remember to change the image.
 
 ![11.png](/images/11.png)
 
-3.15. Save it, back to terminal, copy below command and paste it into terminal, this command help you create a deployment using kubernetes cli.
+3.16. Save it, back to terminal, copy below command and paste it into terminal, this command help you create a deployment using kubernetes cli.
 
 	$ kubectl create -f Deployment.yaml --record
 	$ kubectl describe deployment/testwebapp-deployment
     
-3.16. You will see the deployment detail, if you deploy successfully.
+3.17. You will see the deployment detail, if you deploy successfully.
 
 ![12.png](/images/12.png)
 
 > Now we have the pods, we need a Service to connect our Web application
 
-3.17. Copy below command and paste into terminal, this command help you create a service.
+3.18. Copy below command and paste into terminal, this command help you create a service.
 
 	$ kubectl create -f Service.yaml --record
 	$ kubectl describe svc/testwebapp-service
 > You can open Service.yaml to see the structure.
 
-3.18. You will see the deployment detail, if you deploy successfully, and please note the **Loadbalancer ingress**.
+3.19. You will see the deployment detail, if you deploy successfully, and please note the **Loadbalancer ingress**.
     
 ![13.png](/images/13.png)
 
-3.19. Open a web page and type **http://your-loadbalacer-ingress**, you will see a website that deploy on kubernetes, try to reload it, and you will see it hosted in different pod
+3.20. Open a web page and type **http://your-loadbalacer-ingress**, you will see a website that deploy on kubernetes, try to reload it, and you will see it hosted in different pod
 
 ![14.png](/images/14.png)
 ![15.png](/images/15.png)

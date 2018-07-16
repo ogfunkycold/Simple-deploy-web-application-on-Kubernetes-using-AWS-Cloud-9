@@ -24,6 +24,8 @@ Another popular option for container orchestration on AWS is Kubernetes. There a
 	https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=k8s-workshop&templateURL=https://s3.amazonaws.com/aws-kubernetes-artifacts/lab-ide-novpc.template
 
 
+Click **Next**.
+
 1.2. Assign an **Subnetid** for this enviroment.
 
 ![1.png](/images/1.png)

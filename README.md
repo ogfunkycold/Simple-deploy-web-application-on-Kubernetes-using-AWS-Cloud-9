@@ -115,6 +115,8 @@ Click **Next**.
 
 3.4. Remember the **Repository URI**, it will be used later.
 
+Click **Next step**.
+
 ![9.png](/images/9.png)
 
 > We also need to give our cloud9’s ec2 a permission to push the image in our repository.
